@@ -319,6 +319,70 @@ public class LfractionTest {
     }
 
     @Test (timeout=1000)
+    public void testValueOfDoubleReturnsZeroOverOneForZero() {
+        Lfraction fraction = Lfraction.valueOf (0.0);
+        assertEquals ("0.0 must be 0/1", new Lfraction (0, 1), fraction);
+        assertTrue ("valueOf(double) denominator limit exceeded for 0.0",
+                fraction.getDenominator() <= 1000000000L);
+        assertTrue ("0.0 conversion must preserve double bits",
+                Double.doubleToLongBits (0.0) == Double.doubleToLongBits (fraction.toDouble()));
+    }
+
+    @Test (timeout=1000)
+    public void testValueOfDoubleReturnsOneOverEightForOneEighth() {
+        Lfraction fraction = Lfraction.valueOf (0.125);
+        assertEquals ("0.125 must be 1/8", new Lfraction (1, 8), fraction);
+        assertTrue ("0.125 conversion must preserve double bits",
+                Double.doubleToLongBits (0.125) == Double.doubleToLongBits (fraction.toDouble()));
+    }
+
+    @Test (timeout=1000)
+    public void testValueOfDoubleReturnsMinusFiveOverTwoForMinusTwoPointFive() {
+        Lfraction fraction = Lfraction.valueOf (-2.5);
+        assertEquals ("-2.5 must be -5/2", new Lfraction (-5, 2), fraction);
+        assertTrue ("-2.5 conversion must preserve double bits",
+                Double.doubleToLongBits (-2.5) == Double.doubleToLongBits (fraction.toDouble()));
+    }
+
+    @Test (timeout=1000)
+    public void testValueOfDoubleReturnsExpectedFractionForPi() {
+        Lfraction fraction = Lfraction.valueOf (Math.PI);
+        assertEquals ("Math.PI must map to 245850922/78256779",
+                new Lfraction (245850922L, 78256779L), fraction);
+        assertTrue ("Math.PI conversion must preserve double bits",
+                Double.doubleToLongBits (Math.PI) == Double.doubleToLongBits (fraction.toDouble()));
+    }
+
+    @Test (timeout=1000)
+    public void testValueOfDoubleReturnsExpectedFractionForE() {
+        Lfraction fraction = Lfraction.valueOf (Math.E);
+        assertEquals ("Math.E must map to 325368125/119696244",
+                new Lfraction (325368125L, 119696244L), fraction);
+        assertTrue ("Math.E conversion must preserve double bits",
+                Double.doubleToLongBits (Math.E) == Double.doubleToLongBits (fraction.toDouble()));
+    }
+
+    @Test (timeout=1000)
+    public void testValueOfDoubleReturnsExpectedFractionForSquareRootOfTwo() {
+        double squareRootOfTwo = Math.sqrt (2.0);
+        Lfraction fraction = Lfraction.valueOf (squareRootOfTwo);
+        assertEquals ("sqrt(2) must map to 131836323/93222358",
+                new Lfraction (131836323L, 93222358L), fraction);
+        assertTrue ("sqrt(2) conversion must preserve double bits",
+                Double.doubleToLongBits (squareRootOfTwo) == Double.doubleToLongBits (fraction.toDouble()));
+    }
+
+    @Test (timeout=1000)
+    public void testValueOfDoubleRandom() {
+        double randomValue = Math.random();
+        Lfraction randomFraction = Lfraction.valueOf (randomValue);
+        assertTrue ("valueOf(double) denominator must not exceed 1 billion",
+                randomFraction.getDenominator() <= 1000000000L);
+        assertTrue ("valueOf(double) must preserve random double bits",
+                Double.doubleToLongBits (randomValue) == Double.doubleToLongBits (randomFraction.toDouble()));
+    }
+
+    @Test (timeout=1000)
     public void testHashCode() {
         Lfraction q1 = new Lfraction (1L, 2L);
         int h1 = q1.hashCode();
