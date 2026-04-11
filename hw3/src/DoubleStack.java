@@ -171,37 +171,105 @@ public class DoubleStack {
     }
 
     public static double interpret (String pol) {
-        // return 0.; // TODO!!! Your code here!
+        // Kontrollime, et sisendstring üldse eksisteeriks.
         if (pol == null) {
             throw new RuntimeException("RPN expression error: expression is null.");
         }
 
+        // Eemaldame algusest ja lõpust tühikud.
         String trimmed = pol.trim();
+
+        // Kui pärast trim'i ei jäänud midagi alles, siis avaldis on tühi.
         if (trimmed.isEmpty()) {
             throw new RuntimeException("RPN expression error: expression is empty or contains only whitespace.");
         }
 
+        // Loome abipinu, mille peal hakkame avaldist samm-sammult läbi mängima.
         DoubleStack st = new DoubleStack();
+
+        // Jagame sisendi tokeniteks kõigi whitespace-märkide järgi.
         String[] tokens = trimmed.split("\\s+");
 
+        // Töötleme kõik tokenid vasakult paremale.
         for (String token : tokens) {
-            if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
-                try {
+            try {
+                // Tavalised aritmeetilised tehted delegeerime olemasolevale op() meetodile.
+                if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
                     st.op(token);
-                } catch (RuntimeException e) {
-                    throw new RuntimeException("RPN expression error in \"" + pol + "\": " + e.getMessage());
-                }
-            } else {
-                try {
+
+                    // SWAP: a b -> b a
+                    // Võtame kaks pealmist elementi ja paneme need tagasi vastupidises järjekorras.
+                } else if (token.equals("SWAP")) {
+                    // Kontrollime, et vähemalt kaks elementi oleks olemas.
+                    if (st.stEmpty()) {
+                        throw new RuntimeException("Stack underflow while applying operator \"SWAP\": two elements are required on the stack.");
+                    }
+                    double first = st.pop();   // peamine element b
+
+                    if (st.stEmpty()) {
+                        throw new RuntimeException("Stack underflow while applying operator \"SWAP\": two elements are required on the stack.");
+                    }
+                    double second = st.pop();  // järgmine element a
+
+                    // Tagasi pannes tekib järjestus b a.
+                    st.push(first);
+                    st.push(second);
+
+                    // ROT: a b c -> b c a
+                    // Kolmas pealmine element tõstetakse kõige peale.
+                } else if (token.equals("ROT")) {
+                    // Kontrollime, et vähemalt kolm elementi oleks olemas.
+                    if (st.stEmpty()) {
+                        throw new RuntimeException("Stack underflow while applying operator \"ROT\": three elements are required on the stack.");
+                    }
+                    double first = st.pop();   // c
+
+                    if (st.stEmpty()) {
+                        throw new RuntimeException("Stack underflow while applying operator \"ROT\": three elements are required on the stack.");
+                    }
+                    double second = st.pop();  // b
+
+                    if (st.stEmpty()) {
+                        throw new RuntimeException("Stack underflow while applying operator \"ROT\": three elements are required on the stack.");
+                    }
+                    double third = st.pop();   // a
+
+                    // Tagasi pannes tahame saada b c a.
+                    st.push(second);  // b
+                    st.push(first);   // c
+                    st.push(third);   // a
+
+                    // DUP: a -> a a
+                    // Loome pealmisest elemendist koopia.
+                } else if (token.equals("DUP")) {
+                    // tos() kontrollib ise, et pinu ei oleks tühi.
+                    double value = st.tos();
+                    st.push(value);
+
+                    // DROP: a -> (eemaldatakse)
+                    // Eemaldame pealmise elemendi.
+                } else if (token.equals("DROP")) {
+                    // pop() kontrollib ise, et pinu ei oleks tühi.
+                    st.pop();
+
+                    // Kui token ei ole ükski teadaolev operaator, proovime seda lugeda arvuna.
+                } else {
                     st.push(Double.parseDouble(token));
-                } catch (NumberFormatException e) {
-                    throw new RuntimeException("RPN expression error in \"" + pol
-                            + "\": illegal token \"" + token
-                            + "\". Token must be a double number or one of + - * /.");
                 }
+
+                // Kui token ei olnud arv, anname arusaadava veateate.
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("RPN expression error in \"" + pol
+                        + "\": illegal token \"" + token
+                        + "\". Token must be a double number or one of + - * / SWAP ROT DUP DROP.");
+
+                // Kui ükskõik milline stackioperatsioon ebaõnnestub, lisame kogu avaldise konteksti.
+            } catch (RuntimeException e) {
+                throw new RuntimeException("RPN expression error in \"" + pol + "\": " + e.getMessage());
             }
         }
 
+        // Pärast kõigi tokenite töötlemist peab pinus olema täpselt üks tulemus.
         double result;
         try {
             result = st.pop();
@@ -209,11 +277,13 @@ public class DoubleStack {
             throw new RuntimeException("RPN expression error in \"" + pol + "\": " + e.getMessage());
         }
 
+        // Kui pinusse jäi midagi veel alles, siis avaldis ei olnud tasakaalus.
         if (!st.stEmpty()) {
             throw new RuntimeException("RPN expression error in \"" + pol
                     + "\": redundant elements remain on stack " + st + ".");
         }
 
+        // Tagastame lõpptulemuse.
         return result;
     }
 

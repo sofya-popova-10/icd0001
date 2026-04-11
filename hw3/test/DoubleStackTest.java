@@ -271,5 +271,67 @@ public class DoubleStackTest {
     public void testTooFewNumbers3() {
         DoubleStack.interpret ("+");
     }
+
+    @Test (timeout=1000)
+    public void testInterpretSwapThenSubtract() {
+        String s = "2. 5. SWAP -";
+        assertEquals ("expression: " + s, 3., DoubleStack.interpret (s), delta);
+    }
+
+    @Test (timeout=1000)
+    public void testInterpretRotThenSubtractAndAdd() {
+        String s = "2. 5. 9. ROT - +";
+        assertEquals ("expression: " + s, 12., DoubleStack.interpret (s), delta);
+    }
+
+    @Test (timeout=1000)
+    public void testInterpretDupThenMultiply() {
+        String s = "3. DUP *";
+        assertEquals ("expression: " + s, 9., DoubleStack.interpret (s), delta);
+    }
+
+    @Test (timeout=1000)
+    public void testInterpretDropTopElement() {
+        String s = "3. 7. DROP";
+        assertEquals ("expression: " + s, 3., DoubleStack.interpret (s), delta);
+    }
+
+    @Test (timeout=1000)
+    public void testInterpretRotSwapAndSubtractChain() {
+        String s = "9. 11. 17. ROT - SWAP -";
+        assertEquals ("expression: " + s, -3., DoubleStack.interpret (s), delta);
+    }
+
+    @Test (timeout=1000)
+    public void testInterpretRotSwapDupAndArithmeticWithNegatives() {
+        String s = "-3. -5. -7. ROT - SWAP DUP * +";
+        assertEquals ("expression: " + s, 21., DoubleStack.interpret (s), delta);
+    }
+
+    @Test (timeout=1000)
+    public void testInterpretDupRotSwapDropAndSubtract() {
+        String s = "9. 11. 17. DUP ROT - SWAP DROP -";
+        assertEquals ("expression: " + s, 3., DoubleStack.interpret (s), delta);
+    }
+
+    @Test (expected=RuntimeException.class)
+    public void testInterpretDupUnderflow() {
+        DoubleStack.interpret ("DUP");
+    }
+
+    @Test (expected=RuntimeException.class)
+    public void testInterpretDropUnderflow() {
+        DoubleStack.interpret ("DROP");
+    }
+
+    @Test (expected=RuntimeException.class)
+    public void testInterpretSwapUnderflow() {
+        DoubleStack.interpret ("2. SWAP");
+    }
+
+    @Test (expected=RuntimeException.class)
+    public void testInterpretRotUnderflow() {
+        DoubleStack.interpret ("2. 5. ROT");
+    }
 }
 
