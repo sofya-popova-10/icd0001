@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/hw1/hw1.iml" filepath="$PROJECT_DIR$/hw1/hw1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw2/hw2.iml" filepath="$PROJECT_DIR$/hw2/hw2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw3/hw3.iml" filepath="$PROJECT_DIR$/hw3/hw3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw4/hw4.iml" filepath="$PROJECT_DIR$/hw4/hw4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw5/hw5.iml" filepath="$PROJECT_DIR$/hw5/hw5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw6/hw6.iml" filepath="$PROJECT_DIR$/hw6/hw6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw7/hw7.iml" filepath="$PROJECT_DIR$/hw7/hw7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/icd0001.iml" filepath="$PROJECT_DIR$/.idea/icd0001.iml" />
+    </modules>
+  </component>
+</project>
