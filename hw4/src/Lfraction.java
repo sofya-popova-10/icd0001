@@ -204,7 +204,7 @@ public class Lfraction implements Comparable<Lfraction> {
         // Esimene murdosa pärast täisarvuosa eemaldamist.
         double frac = x - a0;
 
-        // Kui arv oli juba täisarv, siis esimene konvergent ongi vastus.
+        // Kui arv oli juba täisarv, siis esimene murru arv ongi vastus.
         if (((double) p1 / (double) q1) == x) {
             return new Lfraction(negative ? -p1 : p1, q1);
         }

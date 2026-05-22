@@ -26,7 +26,7 @@ public class DoubleStack {
         System.out.println(s);                   // [2.0, 15.0]
         s.op("-");
         System.out.println(s);                   // [-13.0]
-        System.out.println(DoubleStack.interpret("2. 15. -"));   // -13.0
+        System.out.println(DoubleStack.interpret("DUP 3 5 /"));   // -13.0
     }
 
     DoubleStack() {
@@ -242,14 +242,14 @@ public class DoubleStack {
                     // DUP: a -> a a
                     // Loome pealmisest elemendist koopia.
                 } else if (token.equals("DUP")) {
-                    // tos() kontrollib ise, et pinu ei oleks tühi.
+                    // tos() kontrollib ise, et ei oleks tühi.
                     double value = st.tos();
                     st.push(value);
 
                     // DROP: a -> (eemaldatakse)
                     // Eemaldame pealmise elemendi.
                 } else if (token.equals("DROP")) {
-                    // pop() kontrollib ise, et pinu ei oleks tühi.
+                    // pop() kontrollib ise, et ei oleks tühi.
                     st.pop();
 
                     // Kui token ei ole ükski teadaolev operaator, proovime seda lugeda arvuna.
@@ -269,7 +269,7 @@ public class DoubleStack {
             }
         }
 
-        // Pärast kõigi tokenite töötlemist peab pinus olema täpselt üks tulemus.
+        // Pärast kõigi tokenite töötlemist peab olema täpselt üks tulemus.
         double result;
         try {
             result = st.pop();
@@ -277,13 +277,12 @@ public class DoubleStack {
             throw new RuntimeException("RPN expression error in \"" + pol + "\": " + e.getMessage());
         }
 
-        // Kui pinusse jäi midagi veel alles, siis avaldis ei olnud tasakaalus.
+        // Kui jäi midagi veel alles, siis avaldis ei olnud tasakaalus.
         if (!st.stEmpty()) {
             throw new RuntimeException("RPN expression error in \"" + pol
                     + "\": redundant elements remain on stack " + st + ".");
         }
 
-        // Tagastame lõpptulemuse.
         return result;
     }
 
