@@ -23,13 +23,13 @@ public class ColorSortTest {
         if (len == 0)
             return true;
         for (int i=0; i < r; i++)
-            if (balls[i] != ColorSort.Color.red)
+            if (balls[i] != ColorSort.Color.RED)
                 return false;
         for (int i=r; i < r+g; i++)
-            if (balls[i] != ColorSort.Color.green)
+            if (balls[i] != ColorSort.Color.GREEN)
                 return false;
         for (int i=r+g; i < len; i++)
-            if (balls[i] != ColorSort.Color.blue)
+            if (balls[i] != ColorSort.Color.BLUE)
                 return false;
         return true;
     } // check
@@ -43,13 +43,13 @@ public class ColorSortTest {
         for (int i=0; i < balls.length; i++) {
             double rnd = Math.random();
             if (rnd < 1./3.) {
-                balls[i] = ColorSort.Color.red;
+                balls[i] = ColorSort.Color.RED;
                 rCount++;
             } else  if (rnd > 2./3.) {
-                balls[i] = ColorSort.Color.blue;
+                balls[i] = ColorSort.Color.BLUE;
                 bCount++;
             } else {
-                balls[i] = ColorSort.Color.green;
+                balls[i] = ColorSort.Color.GREEN;
                 gCount++;
             }
         }
@@ -65,13 +65,13 @@ public class ColorSortTest {
         bCount = 0;
         double rnd = Math.random();
         if (rnd < 1./3.) {
-            balls[0] = ColorSort.Color.red;
+            balls[0] = ColorSort.Color.RED;
             rCount++;
         } else  if (rnd > 2./3.) {
-            balls[0] = ColorSort.Color.blue;
+            balls[0] = ColorSort.Color.BLUE;
             bCount++;
         } else {
-            balls[0] = ColorSort.Color.green;
+            balls[0] = ColorSort.Color.GREEN;
             gCount++;
         }
         ColorSort.reorder (balls);
@@ -91,13 +91,13 @@ public class ColorSortTest {
         for (int i=0; i < balls.length; i++) {
             rnd = Math.random();
             if (rnd < 1./3.) {
-                balls[i] = ColorSort.Color.red;
+                balls[i] = ColorSort.Color.RED;
                 rCount++;
             } else  if (rnd > 2./3.) {
-                balls[i] = ColorSort.Color.blue;
+                balls[i] = ColorSort.Color.BLUE;
                 bCount++;
             } else {
-                balls[i] = ColorSort.Color.green;
+                balls[i] = ColorSort.Color.GREEN;
                 gCount++;
             }
         }
@@ -113,7 +113,7 @@ public class ColorSortTest {
         gCount = 0;
         bCount = 0;
         for (int i=0; i < len; i++) {
-            balls[i] = ColorSort.Color.red;
+            balls[i] = ColorSort.Color.RED;
         }
         ColorSort.reorder (balls);
         assertTrue ("Result incorrect for all red",
@@ -125,13 +125,13 @@ public class ColorSortTest {
         for (int i=0; i < balls.length; i++) {
             double rnd = Math.random();
             if (rnd < 1./3.) {
-                balls[i] = ColorSort.Color.red;
+                balls[i] = ColorSort.Color.RED;
                 rCount++;
             } else  if (rnd > 2./3.) {
-                balls[i] = ColorSort.Color.blue;
+                balls[i] = ColorSort.Color.BLUE;
                 bCount++;
             } else {
-                balls[i] = ColorSort.Color.green;
+                balls[i] = ColorSort.Color.GREEN;
                 gCount++;
             }
         }
@@ -147,7 +147,7 @@ public class ColorSortTest {
         gCount = len;
         bCount = 0;
         for (int i=0; i < len; i++) {
-            balls[i] = ColorSort.Color.green;
+            balls[i] = ColorSort.Color.GREEN;
         }
         ColorSort.reorder (balls);
         assertTrue ("Result incorrect for all green",
@@ -159,13 +159,13 @@ public class ColorSortTest {
         for (int i=0; i < balls.length; i++) {
             double rnd = Math.random();
             if (rnd < 1./3.) {
-                balls[i] = ColorSort.Color.red;
+                balls[i] = ColorSort.Color.RED;
                 rCount++;
             } else  if (rnd > 2./3.) {
-                balls[i] = ColorSort.Color.blue;
+                balls[i] = ColorSort.Color.BLUE;
                 bCount++;
             } else {
-                balls[i] = ColorSort.Color.green;
+                balls[i] = ColorSort.Color.GREEN;
                 gCount++;
             }
         }
@@ -181,7 +181,7 @@ public class ColorSortTest {
         gCount = 0;
         bCount = len;
         for (int i=0; i < len; i++) {
-            balls[i] = ColorSort.Color.blue;
+            balls[i] = ColorSort.Color.BLUE;
         }
         ColorSort.reorder (balls);
         assertTrue ("Result incorrect for all blue",
@@ -193,13 +193,13 @@ public class ColorSortTest {
         for (int i=0; i < balls.length; i++) {
             double rnd = Math.random();
             if (rnd < 1./3.) {
-                balls[i] = ColorSort.Color.red;
+                balls[i] = ColorSort.Color.RED;
                 rCount++;
             } else  if (rnd > 2./3.) {
-                balls[i] = ColorSort.Color.blue;
+                balls[i] = ColorSort.Color.BLUE;
                 bCount++;
             } else {
-                balls[i] = ColorSort.Color.green;
+                balls[i] = ColorSort.Color.GREEN;
                 gCount++;
             }
         }
@@ -216,13 +216,13 @@ public class ColorSortTest {
         for (int i=0; i < balls.length; i++) {
             double rnd = Math.random();
             if (rnd < 1./3.) {
-                balls[i] = ColorSort.Color.red;
+                balls[i] = ColorSort.Color.RED;
                 rCount++;
             } else  if (rnd > 2./3.) {
-                balls[i] = ColorSort.Color.blue;
+                balls[i] = ColorSort.Color.BLUE;
                 bCount++;
             } else {
-                balls[i] = ColorSort.Color.green;
+                balls[i] = ColorSort.Color.GREEN;
                 gCount++;
             }
         }

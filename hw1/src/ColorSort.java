@@ -1,11 +1,13 @@
+import static java.awt.Color.green;
+
 public class ColorSort {
 
-    enum Color { red, green, blue };
+    enum Color { RED, GREEN, BLUE }; //muudetud suurteks täheteks
 
     public static void main(String[] param) {
         // Testmassiiv
         Color[] balls = {
-                Color.blue, Color.red, Color.green, Color.red, Color.blue, Color.green
+                Color.BLUE, Color.RED, Color.GREEN, Color.RED, Color.BLUE, Color.GREEN
         };
 
         reorder(balls);
@@ -20,39 +22,41 @@ public class ColorSort {
         // Kui massiiv on tühi või liiga väike, pole vaja sorteerida
         if (balls == null || balls.length < 2) return;
 
-        int low = 0;                 // järgmine koht punase (red) jaoks
-        int mid = 0;                 // hetkel vaadeldav element
-        int high = balls.length - 1; // järgmine koht sinise (blue) jaoks
+
+        // muutujate nimed nüüd on selged
+        int red = 0;                 // järgmine koht punase (red) jaoks
+        int current = 0;                 // hetkel vaadeldav element
+        int blue = balls.length - 1; // järgmine koht sinise (blue) jaoks
 
         // Läbime massiivi ühe korraga
-        while (mid <= high) {
-            switch (balls[mid]) {
+        while (current <= blue) {
+            switch (balls[current]) {
 
-                case red:
+                case RED:
                     // Vaheta current element (mid) vasakule (low)
-                    Color tmp1 = balls[low];
-                    balls[low] = balls[mid];
-                    balls[mid] = tmp1;
+                    Color tmp1 = balls[red];
+                    balls[red] = balls[current];
+                    balls[current] = tmp1;
 
                     // Mõlemad liiguvad edasi
-                    low++;
-                    mid++;
+                    red++;
+                    current++;
                     break;
 
-                case green:
+                case GREEN:
                     // Green jääb keskele → liigume lihtsalt edasi
-                    mid++;
+                    current++;
                     break;
 
-                case blue:
+                case BLUE:
                     // Vaheta current element (mid) paremale (high)
-                    Color tmp2 = balls[mid];
-                    balls[mid] = balls[high];
-                    balls[high] = tmp2;
+                    Color tmp2 = balls[current];
+                    balls[current] = balls[blue];
+                    balls[blue] = tmp2;
 
                     // Vähendame high-i
                     // NB! mid ei suurene, sest uus element tuleb üle kontrollida
-                    high--;
+                    blue--;
                     break;
             }
         }
